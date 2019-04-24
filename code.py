@@ -1,6 +1,6 @@
 import cv2
 from functools import wraps
-from pygame import mixer
+#from pygame import mixer
 import time
 
 lastsave = 0
@@ -19,41 +19,46 @@ def counter(func):
     tmp.count = 0
     return tmp
 
-
+#loading the xml files
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0) #0 for default cam and 1 for external cam
 
 
 @counter
 def closed():
-  print "Eye Closed"
+  print ("Eye Closed")
 
 
 def openeye():
-  print "Eye is Open"
+  print ("Eye is Open")
 
 
-
+'''
 def sound():
     mixer.init()
     mixer.music.load('alarm.mp3')
     mixer.music.play()
+'''
 
 while 1:
-    ret, img = cap.read()
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    ret, img = cap.read()   #reading the videofeed
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #conversion to grayscale
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5) #harcasscade
 
+    #drawing rectangles around the face
     for (x, y, w, h) in faces:
         cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
         roi_gray = gray[y:y + h, x:x + w]
         roi_color = img[y:y + h, x:x + w]
 
+        #detecting eyes
         eyes = eye_cascade.detectMultiScale(roi_gray)
 
+
+        #if eyes detected draw rectangle and declare eye open else closed
         if eyes is not ():
             for (ex, ey, ew, eh) in eyes:
                 cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
@@ -61,8 +66,8 @@ while 1:
         else:
            closed()
            if closed.count == 3:
-               print "driver is sleeping"
-               sound()
+               print ("driver is sleeping")
+               #sound()
 
 
 
