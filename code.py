@@ -1,4 +1,4 @@
-import cv2
+import cv2          
 from functools import wraps
 #from pygame import mixer
 import time
@@ -20,9 +20,9 @@ def counter(func):
     return tmp
 
 #loading the xml files
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')             #for the face
 
-eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')                              #for the eye
 
 cap = cv2.VideoCapture(0) #0 for default cam and 1 for external cam
 
@@ -35,7 +35,7 @@ def closed():
 def openeye():
   print ("Eye is Open")
 
-
+#fumnction for alarm sound
 '''
 def sound():
     mixer.init()
@@ -65,17 +65,17 @@ while 1:
                 openeye()
         else:
            closed()
-           if closed.count == 3:
-               print ("driver is sleeping")
-               #sound()
+           if closed.count == 3:             #checking condition
+               print ("driver is sleeping") 
+               #sound()                      #sound the alarm
 
 
 
 
-
+    #show the frame window
     cv2.imshow('img', img)
     k = cv2.waitKey(30) & 0xff
 
-
+#free the camera and destroy the window
 cap.release()
 cv2.destroyAllWindows()
