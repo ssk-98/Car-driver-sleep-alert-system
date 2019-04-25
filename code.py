@@ -28,7 +28,7 @@ cap = cv2.VideoCapture(0) #0 for default cam and 1 for external cam
 
 
 @counter
-def closed():
+def closed():       
   print ("Eye Closed")
 
 
@@ -39,7 +39,7 @@ def openeye():
 '''
 def sound():
     mixer.init()
-    mixer.music.load('alarm.mp3')
+    mixer.music.load('alarm.mp3')                            #loading the audio for alarm
     mixer.music.play()
 '''
 
